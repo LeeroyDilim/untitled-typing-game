@@ -1,5 +1,5 @@
 # untitled-typing-game
-A sequel to [CTRL + Serve] that takes the series in an entirely new direction, putting a greater emphasis on restaurant management and tycoon gameplay.
+A sequel to [CTRL + Serve](https://thesedevsarecooked.itch.io/ctrl-plus-serve) that takes the series in an entirely new direction, putting a greater emphasis on restaurant management and tycoon gameplay.
 
 ## License
 
