@@ -1,4 +1,5 @@
 extends Node
+class_name InputBuffer
 
 var curr_input : String = ""
 signal input_updated(input: String, char_removed: bool)

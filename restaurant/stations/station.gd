@@ -1,56 +1,40 @@
 extends Node
 class_name Station
 
-@export var station_name : String
+@export var station_renderer: StationRenderer
+@export var station_logic: StationLogic
 
-signal prompts_updated(prompt)
-signal highlight_prompt(input)
-signal prompt_mistyped()
+var station_name: String = ""
 
-var STATES
-var curr_state 
+signal update_prompt_ui(prompt)
+signal update_highlight_ui(input)
+signal trigger_mistype_anim()
 
-func _ready():
-	curr_state = STATES.idle
-
-func start_station() -> void:
-	prompts_updated.emit(curr_state.prompt)
-
-func leave_station() -> void:
-	update_state(STATES.idle)
-
-func highlight_input(input : String) -> bool:
-	if !curr_state.prompt:
-		return false
-
-	var input_is_highlighted = false 
-	highlight_prompt.emit(input)
-
-	for prompt in curr_state.prompt[0]:
-		if prompt.begins_with(input):
-			input_is_highlighted = true
-			break
-
-	return input_is_highlighted
-
-func handle_misinput() -> void:
-	prompt_mistyped.emit()
-	highlight_prompt.emit("")
-
-func handle_prompt(prompt : String) -> bool:
-	if !curr_state.prompt:
-		return false
+func _ready() -> void:
+	update_prompt_ui.connect(station_renderer.render_prompts)
+	update_highlight_ui.connect(station_renderer.render_highlight)
+	trigger_mistype_anim.connect(station_renderer.shake)
+	station_logic.prompts_changed.connect(_on_prompts_update)
 	
-	return prompt in curr_state.prompt[0]
+	station_logic.init_station(station_name)
 
-func update_state(new_state : Dictionary) -> void:
-	curr_state = new_state.duplicate(true)
+func exit() -> void:
+	station_logic.exit()
 
-func _consume_prompt(next_state: Dictionary) -> bool:
-	curr_state.prompt.pop_front()
+func highlight_prompts(input : String) -> bool:
+	update_highlight_ui.emit(input)
+	return station_logic.highlight_prompts(input)
 
-	var transitioned = curr_state.prompt.is_empty()
-	var updated_state = next_state if transitioned else curr_state
+func match_prompts(input: String) -> bool:
+	return station_logic.match_prompts(input)
 
-	update_state(updated_state)
-	return transitioned
+func process_prompt(input : String) -> bool:
+	return station_logic.process_prompt(input)
+	
+func handle_misinput() -> void:
+	trigger_mistype_anim.emit()
+	update_highlight_ui.emit("")
+
+func _on_prompts_update(prompts: Variant) -> void:
+	update_prompt_ui.emit(prompts)
+	

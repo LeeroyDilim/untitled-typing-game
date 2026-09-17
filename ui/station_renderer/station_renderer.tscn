@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://sdowdadrmc1g"]
+
+[ext_resource type="Script" uid="uid://1ospe85h7eho" path="res://ui/station_renderer/station_renderer.gd" id="1_0jw5y"]
+
+[node name="StationRenderer" type="Control" unique_id=2096981065]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0jw5y")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1209911884]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PromptContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1141906460]
+layout_mode = 2
+alignment = 1
