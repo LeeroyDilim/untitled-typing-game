@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bpbhfgnygm47n"]
+
+[ext_resource type="PackedScene" uid="uid://sdowdadrmc1g" path="res://ui/station_renderer/station_renderer.tscn" id="1_fm1k4"]
+[ext_resource type="Script" uid="uid://jkjgm7a41wky" path="res://restaurant/stations/prepare_station/prepare_station.gd" id="2_3elr0"]
+[ext_resource type="Script" uid="uid://cg8ijsk5okrm1" path="res://restaurant/stations/prepare_station/prepare_station_logic.gd" id="3_3elr0"]
+
+[node name="PrepareStation" type="Node2D" unique_id=1961947723 node_paths=PackedStringArray("station_renderer", "station_logic") groups=["station"]]
+script = ExtResource("2_3elr0")
+station_renderer = NodePath("StationRenderer")
+station_logic = NodePath("Logic")
+
+[node name="StationRenderer" parent="." unique_id=2096981065 instance=ExtResource("1_fm1k4")]
+
+[node name="Logic" type="Node" parent="." unique_id=1107893988]
+script = ExtResource("3_3elr0")

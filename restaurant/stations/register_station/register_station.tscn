@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bvw2f000cogm1"]
+
+[ext_resource type="PackedScene" uid="uid://sdowdadrmc1g" path="res://ui/station_renderer/station_renderer.tscn" id="1_3d704"]
+[ext_resource type="Script" uid="uid://cw8ddnylf83cy" path="res://restaurant/stations/register_station/register_station.gd" id="1_8ubx3"]
+[ext_resource type="Script" uid="uid://ds1wleh5w3ci5" path="res://restaurant/stations/register_station/register_station_logic.gd" id="2_8ubx3"]
+
+[node name="RegisterStation" type="Node2D" unique_id=1809747998 node_paths=PackedStringArray("station_renderer", "station_logic") groups=["station"]]
+script = ExtResource("1_8ubx3")
+station_renderer = NodePath("StationRenderer")
+station_logic = NodePath("Logic")
+
+[node name="StationRenderer" parent="." unique_id=2096981065 instance=ExtResource("1_3d704")]
+
+[node name="Logic" type="Node" parent="." unique_id=946556426]
+script = ExtResource("2_8ubx3")
