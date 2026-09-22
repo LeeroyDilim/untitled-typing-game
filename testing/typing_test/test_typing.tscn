@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://c2xuyovxfff70"]
 
+[ext_resource type="Script" uid="uid://mkrvfuun5a01" path="res://testing/typing_test/test_typing.gd" id="1_58ex0"]
 [ext_resource type="Script" uid="uid://bihj4ujx33pmw" path="res://core/input/input_buffer.gd" id="1_je16j"]
 [ext_resource type="Script" uid="uid://dpc2dlw3fkmxx" path="res://testing/typing_test/test_typing_label.gd" id="2_0sajm"]
 [ext_resource type="Script" uid="uid://lt0ojwlwmp15" path="res://core/input/input_manager.gd" id="3_dnjs1"]
 [ext_resource type="PackedScene" uid="uid://bpbhfgnygm47n" path="res://restaurant/stations/prepare_station/prepare_station.tscn" id="4_58ex0"]
+[ext_resource type="PackedScene" uid="uid://bvc46g5c1jt6w" path="res://entities/player/test_player/test_player.tscn" id="5_p6n73"]
+[ext_resource type="PackedScene" uid="uid://bvw2f000cogm1" path="res://restaurant/stations/register_station/register_station.tscn" id="7_k2xtp"]
 
 [node name="TestTyping" type="Node2D" unique_id=861163833]
+script = ExtResource("1_58ex0")
 
 [node name="TestTypingLabel" type="Label" parent="." unique_id=1973241192]
 offset_left = 309.51135
@@ -19,13 +23,21 @@ script = ExtResource("2_0sajm")
 [node name="TypingBuffer" type="Node" parent="Typing" unique_id=2079545512]
 script = ExtResource("1_je16j")
 
-[node name="TypingManager" type="Node" parent="Typing" unique_id=220539156]
+[node name="TypingManager" type="Node" parent="Typing" unique_id=220539156 node_paths=PackedStringArray("player")]
 script = ExtResource("3_dnjs1")
+player = NodePath("../../Entities/TestPlayer")
 
-[node name="Stations" type="Node" parent="Typing/TypingManager" unique_id=2027224890]
+[node name="Entities" type="Node" parent="." unique_id=333695543]
 
-[node name="PrepareStation" parent="Typing/TypingManager/Stations" unique_id=1961947723 instance=ExtResource("4_58ex0")]
+[node name="TestPlayer" parent="Entities" unique_id=1867618538 instance=ExtResource("5_p6n73")]
+
+[node name="Stations" type="Node" parent="." unique_id=2027224890]
+
+[node name="PrepareStation" parent="Stations" unique_id=1961947723 instance=ExtResource("4_58ex0")]
 position = Vector2(309.51135, 106.29616)
+
+[node name="RegisterStation" parent="Stations" unique_id=1809747998 instance=ExtResource("7_k2xtp")]
+position = Vector2(692, 104)
 
 [connection signal="input_updated" from="Typing/TypingBuffer" to="TestTypingLabel" method="_on_test_typing_input_updated"]
 [connection signal="input_updated" from="Typing/TypingBuffer" to="Typing/TypingManager" method="process_input"]

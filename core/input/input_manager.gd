@@ -1,7 +1,7 @@
 extends Node
 class_name InputManager
 
-@export var input_buffer: InputBuffer
+@export var player : Player
 
 signal clear_input
 
@@ -13,7 +13,7 @@ var typing_streak : int = 0
 var highest_typing_streak : int = 0
 var input_is_mistype : bool = false
 
-func _ready():
+func init_input_manager():
 	# collect every node that belongs to the "station" group
 	# note that these are all PARENT nodes, not their logic children
 	for node in get_tree().get_nodes_in_group("station"):
@@ -65,8 +65,9 @@ func _handle_prompt_match(matching_station: Station, input: String) -> void:
 		if curr_station:
 			curr_station.exit()
 		curr_station = matching_station
-
-	matching_station.process_prompt(input)
+		player.navigateToStation(matching_station, input)
+	else:
+		matching_station.process_prompt(input)
 
 func _handle_mistype() -> void:
 	if typing_streak > highest_typing_streak:

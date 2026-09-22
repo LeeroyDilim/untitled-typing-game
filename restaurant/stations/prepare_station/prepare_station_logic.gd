@@ -1,8 +1,9 @@
 extends StationLogic
 
-var chosen_ingredient : String 
+var station_name: String = "prepare"
+var chosen_ingredient: String 
 
-func init_station(station_name: String):
+func init_station() -> void:
 	STATES = {
 		"idle" : {
 			"state_name" : "idle",
@@ -18,7 +19,7 @@ func init_station(station_name: String):
 		}
 	}
 
-	super.init_station(station_name)
+	super.init_station()
 
 func process_prompt(prompt : String) -> bool:
 	match curr_state.state_name:

@@ -6,7 +6,7 @@ signal prompts_changed(prompt)
 var STATES
 var curr_state 
 
-func init_station(station_name: String):
+func init_station():
 	update_state(STATES.idle)
 
 func exit() -> void:

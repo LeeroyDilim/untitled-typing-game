@@ -11,12 +11,14 @@ signal update_highlight_ui(input)
 signal trigger_mistype_anim()
 
 func _ready() -> void:
+	station_name = station_logic.station_name
+
 	update_prompt_ui.connect(station_renderer.render_prompts)
 	update_highlight_ui.connect(station_renderer.render_highlight)
 	trigger_mistype_anim.connect(station_renderer.shake)
 	station_logic.prompts_changed.connect(_on_prompts_update)
-	
-	station_logic.init_station(station_name)
+
+	station_logic.init_station()
 
 func exit() -> void:
 	station_logic.exit()
